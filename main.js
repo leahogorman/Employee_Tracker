@@ -71,7 +71,7 @@ async function main() {
             { name: 'departmentID', type: 'input', message: 'What is the ID NUMBER of the DEPARTMENT of the ROLE?' }
         ]);
 
-        await db.query("INSERT INTO `roles` (`title`, `salary`, `department_id`) VALUES(?)", [promptAddRole.roleTitle, promptAddRole.roleSalary, promptAddRole.deptartmentID]);
+        await db.query("INSERT INTO `roles` (`title`, `salary`, `department_id`) VALUES(?,?,?)", [promptAddRole.roleTitle, promptAddRole.roleSalary, promptAddRole.deptartmentID]);
 
     } else if (userChoice === 'Add Employee') {
 
@@ -82,7 +82,7 @@ async function main() {
             { name: 'managerID', type: 'input', message: 'What is the ID NUMBER of the MANAGER of the EMPLOYEE?' }
         ]);
 
-        await db.query("INSERT INTO `employees` (`firt_name`, `last_name`, `roles_id`) VALUES(?)", [promptAddEmployee.employeeFirstName, promptAddEmployee.employeeLastName, promptAddEmployee.roleID, promptAddEmployee.managerID]);
+        await db.query("INSERT INTO `employees` (`first_name`, `last_name`, `roles_id`, `manager_id`) VALUES(?,?,?,?)", [promptAddEmployee.employeeFirstName, promptAddEmployee.employeeLastName, promptAddEmployee.roleID, promptAddEmployee.managerID]);
 
     } else if (userChoice === 'View All Departments') {
         const departments = await db.query("Select * FROM departments")
@@ -129,7 +129,7 @@ async function main() {
                 name: 'roleID', type: 'list', message: 'Please CONFIRM that you would like to DELETE this ROLE?',
                 choices: roleToDelete
             }])
-        await db.query("DELETE from roles where roles_id=?", [promptDeleteRole.roleID])
+        await db.query("DELETE from roles where id=?", [promptDeleteRole.roleID])
     } else if (userChoice === 'Delete Employee') {
         let deleteEmployee = await db.query("Selet ID number FROM employee_tracker.employees");
         let employeeToDelete = deleteEmployee.map(function (employee) {

@@ -11,9 +11,9 @@ DROP TABLE if exists `roles`;
 CREATE TABLE `roles`(
 	`id` INT AUTO_INCREMENT PRIMARY KEY,
 	`title` VARCHAR (35),
-    `salary` DECIMAL(4,2) DEFAULT '0.00',
+    `salary` DECIMAL(8,2) DEFAULT '0.00',
     `department_id` INT DEFAULT NULL,
-    FOREIGN KEY (departments_id) REFERENCES departments(id)
+    FOREIGN KEY (`department_id`) REFERENCES `departments`(`id`)
     ON DELETE CASCADE
 );
 
@@ -22,8 +22,8 @@ CREATE TABLE `employees`(
     `id` INT AUTO_INCREMENT PRIMARY KEY,
 	`first_name` VARCHAR (35),
     `last_name` VARCHAR(500) NOT NULL,	
-    `role_id` INT DEFAULT "",
+    `roles_id` INT DEFAULT NULL,
     `manager_id` INT DEFAULT NULL,
-    FOREIGN KEY (roles_id) REFERENCES roles(id)
+    FOREIGN KEY (`roles_id`) REFERENCES `roles`(`id`)
     ON DELETE CASCADE
 );

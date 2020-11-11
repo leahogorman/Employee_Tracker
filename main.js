@@ -103,9 +103,13 @@ async function main() {
             { name: 'roleID', type: 'input', message: 'What is the ID NUMBER of the ROLE of the EMPLOYEE?' },
             { name: 'managerID', type: 'input', message: 'What is the ID NUMBER of the MANAGER of the EMPLOYEE?' }
         ]);
-        await db.query("UPDATE employees SET first_name=?, last_name=?, roles_id=?, manager_id=?", [promptEditEmployee.employeeFirstName, promptAddEmployee.employeeLastName, promptAddEmployee.roleID, promptAddEmployee.managerID]);
+        await db.query("UPDATE employees SET first_name=?, last_name=?, roles_id=?, manager_id=? WHERE id=?", [promptEditEmployee.employeeFirstName, promptEditEmployee.employeeLastName, promptEditEmployee.roleID, promptEditEmployee.managerID, promptEditEmployee.employeeID]);
     } else if (userChoice === 'Update Employee Manager') {
-
+            promptEditManager = await inquirer.prompt([
+                { name: 'employeeID', type: 'input', message: 'What is the ID of the EMPLOYEE you would like to EDIT?' },
+                { name: 'managerID', type: 'input', message: 'What is the NEW ID NUMBER for the MANAGER of the EMPLOYEE?' }
+            ]);
+            await db.query("UPDATE employees SET manager_id=? WHERE id=?", [promptEditManager.managerID, promptEditManager.employeeID]);
     } else if (userChoice === 'Delete Department') {
         let deleteDepartment = await db.query("Selet name FROM employee_tracker.departments");
         let departmentToDelete = deleteDepartment.map(function (department) {

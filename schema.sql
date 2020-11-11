@@ -13,7 +13,6 @@ CREATE TABLE `roles`(
 	`title` VARCHAR (35),
     `salary` DECIMAL(8,2) DEFAULT '0.00',
     `department_id` INT DEFAULT NULL,
-    FOREIGN KEY (`department_id`) REFERENCES `departments`(`id`)
     ON DELETE CASCADE
 );
 
@@ -24,6 +23,5 @@ CREATE TABLE `employees`(
     `last_name` VARCHAR(500) NOT NULL,	
     `roles_id` INT DEFAULT NULL,
     `manager_id` INT DEFAULT NULL,
-    FOREIGN KEY (`roles_id`) REFERENCES `roles`(`id`)
     ON DELETE CASCADE
 );
